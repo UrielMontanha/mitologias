@@ -11,7 +11,10 @@ function conectar()
 
     if ($conexao === false) {
         echo "Problemas para conectar no banco. Erro: ";
-        echo myslqi_connect_error();
+        echo mysqli_connect_error();
         die();
     }
+
+    return $conexao;
+
 }

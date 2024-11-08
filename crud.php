@@ -123,7 +123,6 @@
             <div class="card-panel">
 
 
-
                 <div class="row">
                     <div class="input-field col s12">
                         <input id="no_mit" name="no_mit" type="text" class="validate" pattern="^[A-Za-zÀ-ÿ]+$" required>
@@ -157,70 +156,90 @@
                         <input type="file" name="arquivo">
                     </div>
                 </div>
-            
-            </main>
 
-            <br><br><br>
-
-<!-------------------------------------------------------------------------------------------------------->
-
-<table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>CPF</th>
-                    <th>Nome</th>
-                    <th>Data de Nascimetnto</th>
-                    <th>Operação</th>
-                </tr>
-            </thead>
-
-            <tbody>
-
-                <?php $sql = "SELECT * FROM clientes";
-                $resultado = mysqli_query($conexao, $sql);
-                while ($linha = mysqli_fetch_array($resultado)) { ?>
-                    <tr>
-                        <td> <?php echo $linha['id']; ?> </td>
-                        <td> <?php echo $linha['CPF']; ?> </td>
-                        <td> <?php echo $linha['nomeCliente']; ?> </td>
-                        <td> <?php $dataNasc = date('d/m/y', strtotime($linha['dataNasc']));
-                                echo $dataNasc; ?> </td>
-                        <td> <a href="#modal<?php echo $linha['id']; ?>" class="btn-floating btn-medium waves-effect waves-light #bf360c deep-orange darken-4 modal-trigger"><i class="material-icons">delete</i></a> </td>
+                <div class="row">
+                    <div class="col s12">
+                        <p class="center-align">
+                            <button class="btn waves-effect waves-light brown  lighten-3" type="submit" name="action">Enviar
+                                <i class="material-icons right">send</i> </button>
+                        </p>
+                    </div>
+                </div>
 
 
-                        <div id="modal<?php echo $linha['id']; ?>" class="modal">
-                            <div class="modal-content">
-                                <h4>Atenção</h4>
-                                <p>Tu quer excluir esse cara?
-                                <h6> <?php echo $linha['nomeCliente']; ?> </h6>
-                                </p>
-                            </div>
-                            <div class="modal-footer">
-                                <form action="excluir.php" method="POST">
-                                    <input type="hidden" name="id" value="<?php echo $linha['id']; ?>">
+        </main>
 
-                                    <button type="button" name="btn-cancelar" class="modal-action modal-close waves-red btn #b71c1c red darken-4 darken-1">
-                                        Cancelar </button>
+        <br><br><br>
 
-                                    <button type="submit" name="btn-deletar" class="modal-action modal-close  btn waves-light #00796b teal darken-2">
-                                        Confirmar </button>
+        <!------------------------------------------------- Esta linha separa a tabela com o inserir de novas informações ------------------------------------------------------->
+
+        <main class="container">
+
+            <div class="card-panel">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome da mitologia</th>
+                            <th>Nome do deus ou deuses</th>
+                            <th>Imagem</th>
+                            <th>Operação</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <?php
+                        include_once "conexao.php";
+                        $sql = "SELECT * FROM mito";
+                        $conexao = conectar();
+                        $resultado = mysqli_query($conexao, $sql);
+                        while ($linha = mysqli_fetch_array($resultado)) { ?>
+                            <tr>
+                                <td> <?php echo $linha['id'] ?> </td>
+                                <td> <?php echo $linha['no_mit']; ?> </td>
+                                <td> <?php echo $linha['no_de']; ?> </td>
+                                <td> <img src="imagens/<?php echo $linha['arquivo']; ?>"> </td>
+
+                                <td> <a href="#modal<?php echo $linha['id']; ?>" class="btn-floating btn-medium waves-effect waves-light #bf360c deep-orange darken-4 modal-trigger"><i class="material-icons">delete</i></a> </td>
 
 
-                                </form>
-                            </div>
-                        </div>
+                                <div id="modal<?php echo $linha['id']; ?>" class="modal">
+                                    <div class="modal-content">
+                                        <h4>Atenção</h4>
+                                        <p>Você deseja excluir esta mitologia?
+                                        <h6> <?php echo $linha['no_mit']; ?> </h6>
+                                        </p>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <form action="excluir.php" method="POST">
+                                            <input type="hidden" name="id" value="<?php echo $linha['id']; ?>">
+
+                                            <button type="button" name="btn-cancelar" class="modal-action modal-close waves-red btn #b71c1c red darken-4 darken-1">
+                                                Cancelar </button>
+
+                                            <button type="submit" name="btn-deletar" class="modal-action modal-close  btn waves-light #00796b teal darken-2">
+                                                Confirmar </button>
 
 
-                    </tr>
-                <?php
-                }
-                ?>
+                                        </form>
+                                    </div>
+                                </div>
 
-            </tbody>
-        </table>
 
-<!-------------------------------------------------------------------------------------------------------->
+                            </tr>
+                        <?php
+                        }
+                        ?>
+
+                    </tbody>
+                </table>
+            </div>
+        </main>
+
+        <!-------------------------------------------------------------------------------------------------------->
 
 
 
