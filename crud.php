@@ -184,11 +184,11 @@
                             <th>Nome da mitologia</th>
                             <th>Nome do deus ou deuses</th>
                             <th>Imagem</th>
-                            <th>Operação</th>
+                            <th cosplan="2">Opções</th>
                         </tr>
                     </thead>
 
-                    <tbody>
+                    <tbody id="mitologia">
 
                         <?php
                         include_once "conexao.php";
