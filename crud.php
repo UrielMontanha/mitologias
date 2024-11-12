@@ -115,7 +115,7 @@
 
 
 
-    <form id="form" onsubmit="return salvarUsuario(event);">
+    <form id="form" onsubmit="return salvarMitologia(event);">
 
         <main class="container">
 
@@ -134,7 +134,7 @@
 
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="no_de" name="no_de" type="text" class="validate" pattern="^[A-Za-zÀ-ÿ]+$" required>
+                        <input id="no_de" name="no_de" type="text" class="validate" required>
                         <label for="no_de">Nome do deus ou deuses</label>
                         <span class="helper-text" data-error="Campo com preenchimento obrigatório."></span>
                     </div>
@@ -144,18 +144,17 @@
 
                 <div class="row">
                     <div class="input-field col s12">
-                        <!-- <label for="historia">Mito ou história</label> <br> -->
                         <p>Mito ou história:</p>
-                        <textarea name="historia" id="" cols="30" rows="10"></textarea>
+                        <input type="text" name="historia" id="" cols="30" rows="10">
                     </div>
                 </div>
 
-                <div class="row">
+                <!-- <div class="row">
                     <div class="input-field col s12">
                         <p>Escolha uma imagem para representar a mitologia:</p>
                         <input type="file" name="arquivo">
                     </div>
-                </div>
+                </div> -->
 
                 <div class="row">
                     <div class="col s12">
@@ -169,121 +168,85 @@
 
         </main>
 
-        <br><br><br>
+    </form>
 
-        <!------------------------------------------------- Esta linha separa a tabela com o inserir de novas informações ------------------------------------------------------->
+    <br><br><br>
 
-        <main class="container">
+    <!------------------------------------------------- Esta linha separa a tabela com o inserir de novas informações ------------------------------------------------------->
 
-            <div class="card-panel">
+    <main class="container">
 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nome da mitologia</th>
-                            <th>Nome do deus ou deuses</th>
-                            <th>Imagem</th>
-                            <th cosplan="2">Opções</th>
-                        </tr>
-                    </thead>
+        <div class="card-panel">
 
-                    <tbody id="mitologia">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome da mitologia</th>
+                        <th>Nome do deus ou deuses</th>
+                        <!-- <th>Imagem</th> -->
+                        <th cosplan="2">Opções</th>
+                    </tr>
+                </thead>
 
-                        <?php
-                        include_once "conexao.php";
-                        $sql = "SELECT * FROM mito";
-                        $conexao = conectar();
-                        $resultado = mysqli_query($conexao, $sql);
-                        while ($linha = mysqli_fetch_array($resultado)) { ?>
-                            <tr>
-                                <td> <?php echo $linha['id'] ?> </td>
-                                <td> <?php echo $linha['no_mit']; ?> </td>
-                                <td> <?php echo $linha['no_de']; ?> </td>
-                                <td> <img src="imagens/<?php echo $linha['arquivo']; ?>"> </td>
+                <tbody id="mitologias">
 
-                                <td> <a href="#modal<?php echo $linha['id']; ?>" class="btn-floating btn-medium waves-effect waves-light #bf360c deep-orange darken-4 modal-trigger"><i class="material-icons">delete</i></a> </td>
+        </div>
+        </div>
 
 
-                                <div id="modal<?php echo $linha['id']; ?>" class="modal">
-                                    <div class="modal-content">
-                                        <h4>Atenção</h4>
-                                        <p>Você deseja excluir esta mitologia?
-                                        <h6> <?php echo $linha['no_mit']; ?> </h6>
-                                        </p>
-                                    </div>
+        </tr>
 
-                                    <div class="modal-footer">
-                                        <form action="excluir.php" method="POST">
-                                            <input type="hidden" name="id" value="<?php echo $linha['id']; ?>">
+        </tbody>
+        </table>
+        </div>
+    </main>
 
-                                            <button type="button" name="btn-cancelar" class="modal-action modal-close waves-red btn #b71c1c red darken-4 darken-1">
-                                                Cancelar </button>
-
-                                            <button type="submit" name="btn-deletar" class="modal-action modal-close  btn waves-light #00796b teal darken-2">
-                                                Confirmar </button>
-
-
-                                        </form>
-                                    </div>
-                                </div>
-
-
-                            </tr>
-                        <?php
-                        }
-                        ?>
-
-                    </tbody>
-                </table>
-            </div>
-        </main>
-
-        <!-------------------------------------------------------------------------------------------------------->
+    <!-------------------------------------------------------------------------------------------------------->
 
 
 
 
 
 
-        <!--Import jQuery before materialize.js-->
-        <script type="text/javascript" src="js/materialize.min.js"></script>
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="js/materialize.min.js"></script>
 
-        <script>
-            // Inicializa o date picker
-            document.addEventListener('DOMContentLoaded', function() {
-                var elems = document.querySelectorAll('.datepicker');
-                M.Datepicker.init(elems, {
-                    autoClose: true, // Fecha o date picker automaticamente após a seleção
-                    format: 'dd/mm/yyyy', // Define o formato da data
-                    yearRange: [1900, 2100], // Define o intervalo de anos
+    <script>
+        // Inicializa o date picker
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.datepicker');
+            M.Datepicker.init(elems, {
+                autoClose: true, // Fecha o date picker automaticamente após a seleção
+                format: 'dd/mm/yyyy', // Define o formato da data
+                yearRange: [1900, 2100], // Define o intervalo de anos
 
 
-                    onSelect: function(date) {
-                        console.log('Data selecionada: ', date);
-                    }
-                });
+                onSelect: function(date) {
+                    console.log('Data selecionada: ', date);
+                }
             });
+        });
 
 
 
 
-            document.addEventListener('DOMContentLoaded', function() {
-                var elems = document.querySelectorAll('select');
-                var instances = M.FormSelect.init(elems);
-            });
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('select');
+            var instances = M.FormSelect.init(elems);
+        });
 
-            /*
+        /*
 
-            var CPF = document.getElementById("CPF");
-            CPF.addEventListener("input", function (event) {
-              if (CPF.validity) {
-                CPF.setCustomValidity(" ");
-              } else {
-                CPF.setCustomValidity("");
-              }
-            }); */
-        </script>
+        var CPF = document.getElementById("CPF");
+        CPF.addEventListener("input", function (event) {
+          if (CPF.validity) {
+            CPF.setCustomValidity(" ");
+          } else {
+            CPF.setCustomValidity("");
+          }
+        }); */
+    </script>
 
 
     </form>

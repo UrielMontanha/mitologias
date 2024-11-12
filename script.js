@@ -27,8 +27,8 @@ function inserirMitologia(mitologia) {
     tdId.innerHTML = mito.id;
     let tdNomit = document.createElement('td');
     tdNomit.innerHTML = mito.no_mit;
-    let tdNode = document.createElement('td');
-    tdNode = innerHTML = mito.no_de;
+    let tdNodeu = document.createElement('td');
+    tdNodeu = innerHTML = mito.no_de;
     let tdAlterar = document.createElement('td');
     let btnAlterar = document.createElement('button');
     btnAlterar.innerHTML = "Alterar";
@@ -43,7 +43,7 @@ function inserirMitologia(mitologia) {
     tdExcluir.appendChild(btnExcluir);
     tr.appendChild(tdId);
     tr.appendChild(tdNomit);
-    tr.appendChild(tdNode);
+    tr.appendChild(tdNodeu);
     tr.appendChild(tdAlterar);
     tr.appendChild(tdExcluir);
     tbody.appendChild(tr);
@@ -105,12 +105,12 @@ function preencheForm(mitologia) {
     inputIDMitologia.value = mito.id;
     let inputNomit = document.getElementsByName("no_mit")[0];
     inputNomit.value = mito.no_mit;
-    let inputNode = document.getElementByIdName("no_de")[0];
-    inputNode.value = mito.no_de;
+    let inputNodeu = document.getElementByIdName("no_de")[0];
+    inputNodeu.value = mito.no_de;
 }
 
 function salvarMitologia(event) {
-    
+
     //para o comportamento padrão do form
     event.preventDefault();
 
@@ -119,5 +119,56 @@ function salvarMitologia(event) {
     //pega o input do id
     let id = inputIDMitologia.value;
 
-    let inputNomit = document.getElementsByName()
+    let inputNomit = document.getElementsByName("no_mit")[0];
+    let nomit = inputNomit.value;
+
+    let inputNodeu = document.getElementsByName("no_de")[0];
+    let nodeu = inputNodeu.value;
+
+    let inputHist = document.getElementsByName("historia")[0];
+    let hist = inputHist.value;
+
+    if (id == "") {
+        cadastrar(id, nomit, nodeu, hist);
+    } else {
+        alterarUsuario(id, nomit, nodeu, hist);
+    }
+
+    document.getElementById('form').reset();
+}
+
+function cadastrar(id, nomit, nodeu, hist) {
+    fetch('inserir.php',
+        {
+            method: 'POST',
+            body: JSON.stringify({
+                id: id,
+                nomit: nomit,
+                nodeu: nodeu,
+                hist: hist
+            }),
+            headers: { 'Content-Type': "aplication/json; charset=UTF-8" }
+        }
+    )
+        .then(response => response.json())
+        .then(mitologia => inserirMitologia(mitologia))
+        .catch(error => console.log(error));
+}
+
+function alterar(id, Nomit, Nodeu, Hist) {
+    fetch('inserir.php',
+        {
+            method: 'POST',
+            body: JSON.stringify({
+                id: id,
+                nomit: nomit,
+                nodeu: nodeu,
+                hist: hist
+            }),
+            headers: { 'Content-Type': "aplication/json; charset=UTF-8" }
+        }
+    )
+        .then(response => response.json())
+        .then(mitologia => alterarMitologia(mitologia))
+        .catch(error => console.log(error));
 }
