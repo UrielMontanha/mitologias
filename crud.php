@@ -115,13 +115,20 @@
 
 
 
-    <form id="form" onsubmit="return salvarMitologia(event);">
+    <form onsubmit="return salvarMitologia(event);">
 
         <main class="container">
 
             <h1 class="center-align"> Gerenciamento </h1>
             <div class="card-panel">
 
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="id" name="id" type="text" class="validate" pattern="^[A-Za-zÀ-ÿ]+$">
+                        <label for="id">ID</label>
+                        <span class="helper-text" data-error="Campo com preenchimento obrigatório."></span>
+                    </div>
+                </div>
 
                 <div class="row">
                     <div class="input-field col s12">
@@ -184,7 +191,8 @@
                         <th>ID</th>
                         <th>Nome da mitologia</th>
                         <th>Nome do deus ou deuses</th>
-                        <!-- <th>Imagem</th> -->
+                        <th>História</th>
+                        
                         <th cosplan="2">Opções</th>
                     </tr>
                 </thead>
@@ -249,7 +257,8 @@
     </script>
 
 
-    </form>
+
+    <script src="script.js"></script>
 
 </body>
 

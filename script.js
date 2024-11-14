@@ -10,8 +10,8 @@ function listarTodos() {
         }
     )
         .then(response => response.json())
-        .then(mitologia => inserirMitologias(mitologias))
-        .catch(error => console.log(error));
+        .then(mitologias => inserirMitologias(mitologias))
+        
 }
 
 function inserirMitologias(mitologias) {
@@ -20,19 +20,21 @@ function inserirMitologias(mitologias) {
     }
 }
 
-function inserirMitologia(mitologia) {
-    let tbdoy = document.getElementById('mitologias');
+function inserirMitologia(mito) {
+    let tbody = document.getElementById('mitologias');
     let tr = document.createElement('tr');
     let tdId = document.createElement('td');
     tdId.innerHTML = mito.id;
     let tdNomit = document.createElement('td');
-    tdNomit.innerHTML = mito.no_mit;
+    tdNomit.innerHTML = mito.nomit;
     let tdNodeu = document.createElement('td');
-    tdNodeu = innerHTML = mito.no_de;
+    tdNodeu.innerHTML = mito.nodeu;
+    let tdHist = document.createElement('td');
+    tdHist.innerHTML = mito.hist;
     let tdAlterar = document.createElement('td');
     let btnAlterar = document.createElement('button');
     btnAlterar.innerHTML = "Alterar";
-    btnAlterar.addEventListener("click", buscaMitologia, false);
+    btnAlterar.addEventListener("click", buscarMitologia, false);
     btnAlterar.id = mito.id;
     tdAlterar.appendChild(btnAlterar);
     let tdExcluir = document.createElement('td');
@@ -44,6 +46,7 @@ function inserirMitologia(mitologia) {
     tr.appendChild(tdId);
     tr.appendChild(tdNomit);
     tr.appendChild(tdNodeu);
+    tr.appendChild(tdHist);
     tr.appendChild(tdAlterar);
     tr.appendChild(tdExcluir);
     tbody.appendChild(tr);
@@ -61,7 +64,7 @@ function excluir(evt) {
             }
         )
             .then(response => response.json())
-            .then(retorno => excluirMitologia(retorno, id_usuario))
+            .then(retorno => excluirMitologia(retorno, id))
             .catch(error => console.log(error));
     }
 }
@@ -70,19 +73,19 @@ function excluirMitologia(retorno, id) {
     if (retorno == true) {
         let tbody = document.getElementById('mitologias');
         for (const tr of tbody.children) {
-            if (tr.children[0].innerHTML == id_usuario) {
+            if (tr.children[0].innerHTML == id) {
                 tbody.removeChild(tr);
             }
         }
     }
 }
 
-function alterarUsuario(usuario) {
+function alterarMitologia(mitologia) {
     lettbody = document.getElementById('mitologias');
     for (const tr of tbody.children) {
-        if (tr.children[0].innerHTML == usuario.id) {
-            tr.children[1].innerHTML == usuario.no_mit;
-            tr.children[2].innerHTML == usuario.no_de;
+        if (tr.children[0].innerHTML == mitologia.id) {
+            tr.children[1].innerHTML == mitologia.no_mit;
+            tr.children[2].innerHTML == mitologia.no_de;
         }
     }
 }
@@ -96,7 +99,7 @@ function buscarMitologia(evt) {
         }
     )
         .then(response => response.json())
-        .then(mitologia => preencheForm(usuario))
+        .then(mitologia => preencheForm(mitologia))
         .catch(error => console.log(error));
 }
 
@@ -131,10 +134,9 @@ function salvarMitologia(event) {
     if (id == "") {
         cadastrar(id, nomit, nodeu, hist);
     } else {
-        alterarUsuario(id, nomit, nodeu, hist);
+        alterarMitologia(id, nomit, nodeu, hist);
     }
 
-    document.getElementById('form').reset();
 }
 
 function cadastrar(id, nomit, nodeu, hist) {
@@ -147,15 +149,15 @@ function cadastrar(id, nomit, nodeu, hist) {
                 nodeu: nodeu,
                 hist: hist
             }),
-            headers: { 'Content-Type': "aplication/json; charset=UTF-8" }
+            headers: { 'Content-Type': "application/json; charset=UTF-8" }
         }
     )
         .then(response => response.json())
         .then(mitologia => inserirMitologia(mitologia))
-        .catch(error => console.log(error));
+        
 }
 
-function alterar(id, Nomit, Nodeu, Hist) {
+function alterar(id, nomit, nodeu, hist) {
     fetch('inserir.php',
         {
             method: 'POST',
@@ -165,7 +167,7 @@ function alterar(id, Nomit, Nodeu, Hist) {
                 nodeu: nodeu,
                 hist: hist
             }),
-            headers: { 'Content-Type': "aplication/json; charset=UTF-8" }
+            headers: { 'Content-Type': "application/json; charset=UTF-8" }
         }
     )
         .then(response => response.json())

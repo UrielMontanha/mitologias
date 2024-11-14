@@ -6,7 +6,7 @@ $conexao = conectar();
 $mitologia = json_decode(file_get_contents("php://input"));
 
 $sql = "INSERT INTO mito
-    (nomit, nodeu, hist)
+    (no_mit, no_de, historia)
     VALUES
     (
     '$mitologia->nomit',
