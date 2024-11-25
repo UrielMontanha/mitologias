@@ -124,16 +124,16 @@
 
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="id" name="id" type="text" class="validate" pattern="^[A-Za-zÀ-ÿ]+$">
-                        <label for="id">ID</label>
+                        <input id="id" name="id" type="text" class="validate" placeholder="ID">
+
                         <span class="helper-text" data-error="Campo com preenchimento obrigatório."></span>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="no_mit" name="no_mit" type="text" class="validate" pattern="^[A-Za-zÀ-ÿ]+$" required>
-                        <label for="no_mit">Nome da mitologia</label>
+                        <input id="no_mit" name="no_mit" type="text" class="validate" placeholder="Nome da mitologia" pattern="^[A-Za-zÀ-ÿ]+$" required>
+
                         <span class="helper-text" data-error="Campo com preenchimento obrigatório."></span>
                     </div>
                 </div>
@@ -141,8 +141,8 @@
 
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="no_de" name="no_de" type="text" class="validate" required>
-                        <label for="no_de">Nome do deus ou deuses</label>
+                        <input id="no_de" name="no_de" type="text" class="validate" placeholder="Nome do Deus ou Deuses" required>
+
                         <span class="helper-text" data-error="Campo com preenchimento obrigatório."></span>
                     </div>
                 </div>
@@ -151,8 +151,8 @@
 
                 <div class="row">
                     <div class="input-field col s12">
-                        <p>Mito ou história:</p>
-                        <input type="text" name="historia" id="" cols="30" rows="10">
+
+                        <input type="text" name="historia" id="" cols="30" rows="10" placeholder="Mito ou história">
                     </div>
                 </div>
 
@@ -192,7 +192,7 @@
                         <th>Nome da mitologia</th>
                         <th>Nome do deus ou deuses</th>
                         <th>História</th>
-                        
+
                         <th cosplan="2">Opções</th>
                     </tr>
                 </thead>

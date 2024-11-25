@@ -26,11 +26,11 @@ function inserirMitologia(mito) {
     let tdId = document.createElement('td');
     tdId.innerHTML = mito.id;
     let tdNomit = document.createElement('td');
-    tdNomit.innerHTML = mito.nomit;
+    tdNomit.innerHTML = mito.no_mit;
     let tdNodeu = document.createElement('td');
-    tdNodeu.innerHTML = mito.nodeu;
+    tdNodeu.innerHTML = mito.no_de;
     let tdHist = document.createElement('td');
-    tdHist.innerHTML = mito.hist;
+    tdHist.innerHTML = mito.historia;
     let tdAlterar = document.createElement('td');
     let btnAlterar = document.createElement('button');
     btnAlterar.innerHTML = "Alterar";
@@ -80,36 +80,38 @@ function excluirMitologia(retorno, id) {
     }
 }
 
-function alterarMitologia(mitologia) {
+function alterarMitologia(mito) {
     lettbody = document.getElementById('mitologias');
     for (const tr of tbody.children) {
-        if (tr.children[0].innerHTML == mitologia.id) {
-            tr.children[1].innerHTML == mitologia.no_mit;
-            tr.children[2].innerHTML == mitologia.no_de;
+        if (tr.children[0].innerHTML == mito.id) {
+            tr.children[1].innerHTML == mito.no_mit;
+            tr.children[2].innerHTML == mito.no_de;
         }
     }
 }
 
 function buscarMitologia(evt) {
     let id = evt.currentTarget.id;
-    fetch('buscarMitologia.php?id' + id,
+    fetch('buscarMitologia.php?id=' + id,
         {
             method: "GET",
-            headers: { 'Content-Type': "aplication/josn; charset=UTF-8" }
+            headers: { 'Content-Type': "application/json; charset=UTF-8" }
         }
     )
         .then(response => response.json())
-        .then(mitologia => preencheForm(mitologia))
+        .then(mito => preencheForm(mito))
         .catch(error => console.log(error));
 }
 
-function preencheForm(mitologia) {
+function preencheForm(mito) {
     let inputIDMitologia = document.getElementsByName("id")[0];
     inputIDMitologia.value = mito.id;
     let inputNomit = document.getElementsByName("no_mit")[0];
     inputNomit.value = mito.no_mit;
-    let inputNodeu = document.getElementByIdName("no_de")[0];
+    let inputNodeu = document.getElementsByName("no_de")[0];
     inputNodeu.value = mito.no_de;
+    let inputHist = document.getElementsByName("historia")[0];
+    inputHist.value = mito.historia;
 }
 
 function salvarMitologia(event) {
